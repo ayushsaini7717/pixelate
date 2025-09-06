@@ -34,7 +34,7 @@ export default function RootLayout({ children }) {
                 <main className="bg-slate-900 min-h-[2000px] text-white overflow-x-hidden">
                   <FloatingShapes/>
                   <Toaster richColors/>
-                  <Headers/>
+                  {/* <Headers/> */}
                   {children}
                 </main>
               </ConvexClientProvider>

@@ -19,4 +19,41 @@ export default defineSchema({
   .index("by_email",["email"])
   .searchIndex("search_name",{searchField: "name"})
   .searchIndex("search_email",{searchField: "email"}),
+
+
+
+  projects: defineTable({
+    title: v.string(),
+    userId: v.id("users"), 
+  
+    canvasState: v.any(), // fabric.js canvas json
+    width: v.number(),
+    height: v.number(),
+  
+    originalImageUrl: v.optional(v.string()),
+    currentImageUrl: v.optional(v.string()),
+    thumbnailUrl: v.optional(v.string()),
+  
+    activeTransformations: v.optional(v.string()), // current Imagekit URL params
+  
+    backgroundRemoved: v.optional(v.boolean()), // has background removal been applied
+  
+    folderId: v.optional(v.id("folders")),
+  
+    createdAt: v.number(),
+    updatedAt: v.number()
+  }).index("by_user",["userId"])
+  .index("by_user_updated",["userId","updatedAt"])
+  .index("by_folder",["folderId"]),
+
+
+  folders: defineTable({
+    name: v.string(),
+    userId: v.id("users"),
+    createdAt: v.number(),
+  }).index("by_user",["userId"]),
 });
+
+
+// free plan: 3 projects, 20 exports per month, basic features
+// pro plan: unlimited projects/exports, all AI features
