@@ -1,4 +1,14 @@
 import { memo, useState, useCallback } from "react";
+import React from 'react'
+import Link from 'next/link'
+import {
+  SignInButton,
+  SignUpButton,
+  UserButton,
+} from '@clerk/nextjs'
+import { Button } from './ui/button';
+import { Authenticated, Unauthenticated } from 'convex/react';
+import { LayoutDashboard } from 'lucide-react';
 
 const Navbar = memo(() => {
   const [activeSection, setActiveSection] = useState('home');
@@ -35,6 +45,33 @@ const Navbar = memo(() => {
               {item.label}
             </button>
           ))}
+          <div className='flex items-center gap-3 ml-10 md:ml-20'>
+              <Unauthenticated>
+              <SignInButton>
+                <Button variant={"glass"} className="hidden sm:flex">
+                  Sign In
+                </Button>
+              </SignInButton>
+              <SignUpButton>
+                <Button variant="primary">
+                  Get Started
+                </Button>
+              </SignUpButton>
+            </Unauthenticated>
+            <Authenticated>
+              <Link href={"/dashboard"}>
+                <Button variant={"glass"} className={"sm:flex"}>
+                  <LayoutDashboard className='h-4 w-4'/>
+                  <span className='hidden md:flex'>Dashboard</span>
+                </Button>
+              </Link>
+              <UserButton appearance={{
+                elements: {
+                  avatarBox: "w-8 h-8 rounded-full",
+                  
+                }
+              }}/>
+            </Authenticated></div>
         </div>
       </div>
     </nav>
